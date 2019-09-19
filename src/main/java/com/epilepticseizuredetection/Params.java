@@ -37,10 +37,10 @@ public class Params {
 	    
 	// Parameters for the training phase
 	protected static int miniBatchSize = 10;
-	protected static int epochs = 150;
+	protected static int epochs = 50;
 	protected static int maxTimeIterTerminationCondition = 7; // 7 hours
 	    
-	protected static long seed = 50; // Integer for reproducibility of a random number generator
+	protected static long seed = 123; // Integer for reproducibility of a random number generator
 	protected static Random rng = new Random(seed);
 	    
 	// Getters
