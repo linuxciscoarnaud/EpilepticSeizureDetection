@@ -8,7 +8,7 @@ LeNet architecture was used. Details about this architecture can be found [here]
 # The Dataset
 
 Data used to validate this work comes from the database collected at the [Children’s Hospital Boston](https://archive.physionet.org/pn6/chbmit/) which consists of bipolar EEG recordings from pediatric subjects with intractable seizures. These data are subsequently pre-processed as follow:
-- From the continuous EEG signals (which includes all the 23 electrodes used to make the recording), a fixed temporal portion of 2 seconds is extracted. For records containing a seizure, this temporal portion of 2 seconds is extacted in such a way that the time during which the seizure was observed is included.
+- From the continuous EEG signals (which include all the 23 electrodes used to make the recording), a fixed temporal portion of 2 seconds is extracted. For records containing a seizure, this temporal portion of 2 seconds is extacted in such a way that the time during which the seizure was observed is included.
 - Intensity images a then generated from each of the fixed temporal portion of 2 seconds previously extracted.
 
 ![sample data](https://user-images.githubusercontent.com/1300982/65240346-f03f9280-dad8-11e9-81d6-850f34be12f5.png)
