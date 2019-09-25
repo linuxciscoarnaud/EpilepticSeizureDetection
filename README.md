@@ -10,7 +10,9 @@ LeNet architecture was used. Details about this architecture can be found [here]
 
 # The training data
 The data used to validate this work comes from the database collected at the [Children’s Hospital Boston](https://archive.physionet.org/pn6/chbmit/) which consists of bipolar EEG recordings from pediatric subjects with intractable seizures. These data are subsequently pre-processed as follow: 
-- From the continuous EEG signals (which include all the 23 electrodes used to make the recording), fixed temporal portions/windows of 2     seconds are extracted, as shown on the following picture: 
+- From the continuous EEG signals (which include all the 23 electrodes used to make the recording), fixed temporal portions/windows of 2     seconds are extracted, as shown on the following picture:
+  ![2SECS](https://user-images.githubusercontent.com/1300982/65584531-f02c1080-df78-11e9-9474-39a44bc1c81a.png)
+  
 - Intensity images are generated. These images contain features corresponding to the disruptions i talked about earlier. Although for some cases these features are not so visually perceptible (see figure below), they can be learned by a CNN, so as to be able to come up with a model, which can then be used to detect epileptic seizures on other images.
 
 ![generated images](https://user-images.githubusercontent.com/1300982/65385821-e319e200-dd2a-11e9-8d01-77cc8a637e5f.png)
