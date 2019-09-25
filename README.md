@@ -17,6 +17,6 @@ The data used to validate this work comes from the database collected at the [Ch
  ![show](https://user-images.githubusercontent.com/1300982/65589248-ac3d0980-df80-11e9-9f2b-e162958566d1.png)
  You can see that channels "F8-T8, T8-P8_02" and "FT10-T8, T8-P8" that contain common electrodes (T8 for the two cases) repeatedly have     opposite and simultaneous deflections of pens. These phase reversal, which have been highlighted on the generated intensity image can therefore be considered as features to be learned by a CNN. The goal being to be able to come up with a model, which can then be used to detect epileptic seizures on other unseen generated images.
 
-# Get it to work
+# Get the code to work
 
 
