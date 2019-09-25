@@ -13,9 +13,9 @@ The data used to validate this work comes from the database collected at the [Ch
 - From the continuous EEG signals (which include all the 23 electrodes used to make the recording), fixed temporal portions/windows of 2     seconds are extracted, as shown on the following picture:
   ![2SECS](https://user-images.githubusercontent.com/1300982/65584531-f02c1080-df78-11e9-9474-39a44bc1c81a.png)
   
-- Intensity images are generated. These images contain features corresponding to the disruptions i talked about earlier. Although for some cases these features are not so visually perceptible (see figure below), they can be learned by a CNN, so as to be able to come up with a model, which can then be used to detect epileptic seizures on other images.
+- Intensity images are generated from the extracted portions of 2 seconds. For data containing epileptic seizures, the phase reversal     that i talked about earlier and that can be easilly observed (for some cases) are replicated on the on the intensity images, as shown   on the following figure.  
+ 
 
-![generated images](https://user-images.githubusercontent.com/1300982/65385821-e319e200-dd2a-11e9-8d01-77cc8a637e5f.png)
 
 # Get it to work
 
