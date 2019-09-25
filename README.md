@@ -15,7 +15,7 @@ The data used to validate this work comes from the database collected at the [Ch
   
 - Intensity images are generated from the extracted portions of 2 seconds. For data containing epileptic seizures, the phase reversal     that i talked about earlier and that can be easilly observed (for some cases) on the EEG signals are replicated on the intensity images, as shown on the following figure.  
  ![show](https://user-images.githubusercontent.com/1300982/65589248-ac3d0980-df80-11e9-9f2b-e162958566d1.png)
-
+ You can see that channels "F8-T8, T8-P8_02" and "FT10-T8, T8-P8" that contain common electrodes (T8 for the two cases) repeatedly have     opposite and simultaneous deflections of pens.
 
 # Get it to work
 
