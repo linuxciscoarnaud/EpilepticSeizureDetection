@@ -19,6 +19,10 @@ The data used to validate this work comes from the database collected at the [Ch
  
 In the end, the experiment is carried out on 198 intensity images labeled as epileptic and 466 intensity images labeled as healthy.
 
+# Implementation
+## Deeplearning4j
+I used [Deeplearning4j](https://deeplearning4j.org) library for this implementation. It's a deep learning programming library written in java. It contains a computing framework with wide suport for deep learning algorithms.
+
 # Get the code to work
 
 
