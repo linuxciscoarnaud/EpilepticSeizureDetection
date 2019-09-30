@@ -23,6 +23,9 @@ In the end, the experiment is carried out on 198 intensity images labeled as epi
 ## Deeplearning4j
 I used [Deeplearning4j](https://deeplearning4j.org) library for this implementation. It's a deep learning programming library written in java. It contains a computing framework with wide suport for deep learning algorithms.
 
+## Image data augmentation
+I used this technique to artificially expand de size of the training data and create modified versions of the data to ensure that during the training phase, some useful representation of the features, which may actually not be available in the training data are taken into account. The goal is to improve the ability of the model to generalize well on new unseen images.
+
 # Get the code to work
 
 
