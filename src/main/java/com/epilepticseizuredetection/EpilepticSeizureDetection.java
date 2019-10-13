@@ -55,46 +55,43 @@ public class EpilepticSeizureDetection {
        public void execute(String[] args) throws Exception {
     	
 
-       //Loading the data
-       log.info("Loading data....");
+        //Loading the data
+        log.info("Loading data....");
 		
-       // Returns as label the base name of the parent directory of the data.
-       ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
-       // Gets the main path
-       File mainTrainPath = new File(System.getProperty("user.dir"), "/src/main/resources/EpilepticData/trainingData/");
-       File maintTestPath = new File(System.getProperty("user.dir"), "/src/main/resources/EpilepticData/testData/");     
-       // Split up a root directory in to files
-       FileSplit trainFileSplit = new FileSplit(mainTrainPath, NativeImageLoader.ALLOWED_FORMATS, params.getRng()); 
-       FileSplit testFileSplit = new FileSplit(maintTestPath, NativeImageLoader.ALLOWED_FORMATS, params.getRng());
-       // Get the total number of images
-       int numTrain = toIntExact(trainFileSplit.length());
-       int numTest = toIntExact(testFileSplit.length());
-       log.info("Number of training images: " + numTrain);
-       log.info("Number of test images: " + numTest);
-       // Gets the total number of classes
-       // This only works if the root directory is clean, meaning it contains only label sub directories.
-       numClasses = trainFileSplit.getRootDir().listFiles(File::isDirectory).length; 
-       log.info("Number of classes: " + numClasses);
-       // Randomizes the order of paths in an array and removes paths randomly to have the same number of paths for each label.
-       //BalancedPathFilter pathFilter = new BalancedPathFilter(rng, labelMaker, numExamples, numClasses, maxPathsPerLabel);       
-       // Randomizes the order of paths of all the images in an array. (There is no attempt to have the same number of paths for each label, so there is no random paths removal).
-       RandomPathFilter trainPathFilter = new RandomPathFilter(params.getRng(), null, numTrain); 
-       RandomPathFilter testPathFilter = new RandomPathFilter(params.getRng(), null, numTest);
-       // Gets the list of loadable locations exposed as an iterator.
-       //InputSplit[] inputSplit = fileSplit.sample(pathFilter, splitTrainTest, 1 - splitTrainTest); 
-       InputSplit[] trainInputSplit = trainFileSplit.sample(trainPathFilter);
-       InputSplit[] testInputSplit = testFileSplit.sample(testPathFilter);
-       // Gets the training data
-       InputSplit trainData = trainInputSplit[0];
-       InputSplit testData = testInputSplit[0];
-       log.info("Train data: " + trainData.length());
-       log.info("Test data: " + testData.length());
+	// Returns as label the base name of the parent directory of the data.
+    	ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
+    	// Gets the main path
+        File mainPath = new File(System.getProperty("user.dir"), "/src/main/resources/checkedData1/");
+        //File mainPath = new File("C:/TEMP/data/EpilepticData/trainingData1/");      
+        // Split up a root directory in to files
+        FileSplit fileSplit = new FileSplit(mainPath, NativeImageLoader.ALLOWED_FORMATS, params.getRng()); 
+        // Get the total number of images
+        int numExamples = toIntExact(fileSplit.length());
+        log.info("Total number of images: " + numExamples);
+        // Gets the total number of classes
+        // This only works if the root directory is clean, meaning it contains only label sub directories.
+        numClasses = fileSplit.getRootDir().listFiles(File::isDirectory).length; 
+        log.info("Number of classes: " + numClasses);
+        // Randomizes the order of paths in an array and removes paths randomly to have the same number of paths for each label.
+        //BalancedPathFilter pathFilter = new BalancedPathFilter(rng, labelMaker, numExamples, numClasses, maxPathsPerLabel);       
+        // Randomizes the order of paths of all the images in an array. (There is no attempt to have the same number of paths for each label, so there is no random paths removal).
+        RandomPathFilter pathFilter = new RandomPathFilter(params.getRng(), null, numExamples); 
+        // Gets the list of loadable locations exposed as an iterator.
+        InputSplit[] inputSplit = fileSplit.sample(pathFilter, splitTrainTest, 1 - splitTrainTest); 
+        // Gets the training data
+        InputSplit trainData = inputSplit[0];
+        log.info("Number of train data: " + trainData.length());
+        // Gets the test data
+        InputSplit testData = inputSplit[1];       
+        log.info("Number of test data: " + testData.length());
         
-       // Data transformation
-       ImageTransform warpTransform = new WarpImageTransform(params.getRng(), 42);
-       boolean shuffle = true;
-       List<Pair<ImageTransform,Double>> pipeline = Arrays.asList(new Pair<>(warpTransform,0.9));
-       ImageTransform transform = new PipelineImageTransform(pipeline,shuffle);
+        // Data transformation
+        ImageTransform flipTransform = new FlipImageTransform(0);  // Flips around x-axis (flips horizontally).
+        //ImageTransform warpTransform1 = new WarpImageTransform(0, 0, 3, 0, 3, 0, 0, 0); // Kind of deformation only in the horizontal direction
+        //ImageTransform warpTransform2 = new WarpImageTransform(0, 0, 5, 0, 5, 0, 0, 0);
+        boolean shuffle = true;
+        List<Pair<ImageTransform,Double>> pipeline = Arrays.asList(new Pair<>(flipTransform, 0.9));
+        ImageTransform transform = new PipelineImageTransform(pipeline,shuffle);
         
        //Data normalization. Puts all the data in the same scale.
        DataNormalization scaler = new ImagePreProcessingScaler(0, 1);
@@ -128,7 +125,7 @@ public class EpilepticSeizureDetection {
                 network = ModelSerializer.restoreMultiLayerNetwork(modelFilename);
        } else {
         	network = networkConfig.getNetworkConfig();
-        	network.addListeners(new ScoreIterationListener(1));
+        	network.addListeners(new ScoreIterationListener(10));
         	network.init();
         	log.info(network.summary(InputType.convolutional(params.getHeight(), params.getWidth(), params.getChannels())));
         	
