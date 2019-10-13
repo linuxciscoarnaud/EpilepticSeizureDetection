@@ -30,7 +30,6 @@ public class NetworkConfig {
 		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
 			.seed(params.getSeed())
 			.optimizationAlgo(params.getOptimizationAlgorithm())
-			.activation(params.getActivation())
                         .weightInit(params.getWeightInit())
                         .updater(params.getUpdater())
                         .cacheMode(params.getCacheMode())
@@ -38,13 +37,14 @@ public class NetworkConfig {
                         .inferenceWorkspaceMode(params.getWorkspaceMode())
                         .cudnnAlgoMode(params.getCudnnAlgoMode())
                         .convolutionMode(ConvolutionMode.Same)
-                        .l2(0.005)
+                        .l2(0.005)  // Weight decay
+			.miniBatch(true)
 			.list()
 				
 			// block 1
 			.layer(0, new ConvolutionLayer.Builder(new int[] {5, 5}, new int[] {1, 1})
 				.name("cnn1")
-				.activation(Activation.RELU)
+				.activation(Activation.LEAKYRELU)
                                 .nIn(params.getChannels())
                                 .nOut(20)                        
                                 .build())
@@ -55,7 +55,7 @@ public class NetworkConfig {
 			// block 2
 			.layer(2, new ConvolutionLayer.Builder(new int[] {5, 5}, new int[] {1, 1})
 				.name("cnn2")
-				.activation(Activation.RELU)
+				.activation(Activation.LEAKYRELU)
                                 .nOut(50)                        
                                 .build())
 		        .layer(3, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX, new int[] {2, 2}, new int[] {2, 2})
@@ -65,7 +65,7 @@ public class NetworkConfig {
 			// fully connected
 			.layer(4, new DenseLayer.Builder()
 				.name("ffn1")
-				.activation(Activation.RELU)
+				.activation(Activation.LEAKYRELU)
 				.nOut(500)
 				.build())
 				
