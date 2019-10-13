@@ -23,7 +23,6 @@ public class Params {
 
 	// Parameters for network configuration
 	private OptimizationAlgorithm optimizationAlgorithm = OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT;
-	private Activation activation = Activation.IDENTITY;
 	private WeightInit weightInit = WeightInit.XAVIER; 
 	private IUpdater updater = new Nesterovs(0.01, 0.9);
 	private CacheMode cacheMode = CacheMode.NONE;
@@ -37,7 +36,7 @@ public class Params {
 	    
 	// Parameters for the training phase
 	protected static int miniBatchSize = 10;
-	protected static int epochs = 50;
+	protected static int epochs = 30;
 	protected static int maxTimeIterTerminationCondition = 7; // 7 hours
 	    
 	protected static long seed = 123; // Integer for reproducibility of a random number generator
@@ -47,10 +46,6 @@ public class Params {
 		
 	public OptimizationAlgorithm getOptimizationAlgorithm() {
 	 	return optimizationAlgorithm;
-	 }
-	 	
-	 public Activation getActivation() {
-	 	return activation;
 	 }
 	 	
 	 public WeightInit getWeightInit() {
